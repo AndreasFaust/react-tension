@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useSpring, animated } from 'react-spring'
 
-const Tension = ({ ScrolledChild, AnimatedChild }) => {
+const Tension = ({ ScrolledChild, AnimatedChild, middleState = 'translate3d(0, -35px, 0)' }) => {
   const ref = useRef()
   const [elementRested, setRested] = useState(false)
   const [props, set] = useSpring(() => ({
@@ -23,7 +23,8 @@ const Tension = ({ ScrolledChild, AnimatedChild }) => {
           })
         } else {
           set({
-            transform: `translate3d(0, -35px, 0)`
+            // transform:
+            transform: middleState
           })
         }
       } else {
