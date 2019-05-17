@@ -46,7 +46,9 @@ function _nonIterableRest() {
 
 var Tension = function Tension(_ref) {
   var ScrolledChild = _ref.ScrolledChild,
-      AnimatedChild = _ref.AnimatedChild;
+      AnimatedChild = _ref.AnimatedChild,
+      _ref$middleState = _ref.middleState,
+      middleState = _ref$middleState === void 0 ? 'translate3d(0, -35px, 0)' : _ref$middleState;
   var ref = React.useRef();
 
   var _useState = React.useState(false),
@@ -84,7 +86,8 @@ var Tension = function Tension(_ref) {
           });
         } else {
           set({
-            transform: "translate3d(0, -35px, 0)"
+            // transform:
+            transform: middleState
           });
         }
       } else {
