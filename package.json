@@ -1,7 +1,7 @@
 {
   "name": "react-tension",
   "description": "Reveal elments smoothly on scroll with sophisticated tension-animation provided by react-spring.",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "author": "Andreas Faust",
   "license": "MIT",
   "repository": "AndreasFaust/react-tension",
