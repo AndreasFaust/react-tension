@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useSpring, animated } from 'react-spring'
 
-const Tension = ({ ScrolledChild, AnimatedChild, middleState = 'translate3d(0, -35px, 0)' }) => {
+const Tension = ({ ScrolledChild, AnimatedChild, release, middleState = 'translate3d(0, -35px, 0)' }) => {
   const ref = useRef()
   const [elementRested, setRested] = useState(false)
   const [props, set] = useSpring(() => ({
@@ -10,9 +10,21 @@ const Tension = ({ ScrolledChild, AnimatedChild, middleState = 'translate3d(0, -
   }))
 
   useEffect(() => {
+    if (release) {
+      const windowHeight = window.innerHeight * 0.95
+      const rect = ref.current.getBoundingClientRect()
+      set({
+        transform: `translate3d(0, -${windowHeight - rect.top}px, 0)`,
+        delay: 10
+      })
+    }
+  }, [release])
+
+  useEffect(() => {
     if (elementRested) return
     const windowHeight = window.innerHeight * 0.95
     function onScroll () {
+      if (release) return
       const rect = ref.current.getBoundingClientRect()
       if (rect.top < windowHeight * 1.2) {
         if (rect.top < (windowHeight / 3) * 2) {
@@ -36,7 +48,7 @@ const Tension = ({ ScrolledChild, AnimatedChild, middleState = 'translate3d(0, -
     window.setTimeout(onScroll, 500)
     window.addEventListener('scroll', onScroll)
     return () => window.removeEventListener('scroll', onScroll)
-  }, [elementRested])
+  }, [elementRested, release])
 
   return (
     <>
