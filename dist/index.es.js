@@ -42,7 +42,6 @@ function _nonIterableRest() {
 var Tension = function Tension(_ref) {
   var ScrolledChild = _ref.ScrolledChild,
       AnimatedChild = _ref.AnimatedChild,
-      release = _ref.release,
       _ref$middleState = _ref.middleState,
       middleState = _ref$middleState === void 0 ? 'translate3d(0, -35px, 0)' : _ref$middleState;
   var ref = useRef();
@@ -67,21 +66,10 @@ var Tension = function Tension(_ref) {
       set = _useSpring2[1];
 
   useEffect(function () {
-    if (release) {
-      var windowHeight = window.innerHeight * 0.95;
-      var rect = ref.current.getBoundingClientRect();
-      set({
-        transform: "translate3d(0, -".concat(windowHeight - rect.top, "px, 0)"),
-        delay: 10
-      });
-    }
-  }, [release]);
-  useEffect(function () {
     if (elementRested) return;
     var windowHeight = window.innerHeight * 0.95;
 
     function onScroll() {
-      if (release) return;
       var rect = ref.current.getBoundingClientRect();
 
       if (rect.top < windowHeight * 1.2) {
@@ -109,7 +97,7 @@ var Tension = function Tension(_ref) {
     return function () {
       return window.removeEventListener('scroll', onScroll);
     };
-  }, [elementRested, release]);
+  }, [elementRested]);
   return React.createElement(React.Fragment, null, React.createElement("div", {
     ref: ref,
     style: {
